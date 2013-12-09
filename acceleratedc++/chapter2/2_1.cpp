@@ -15,7 +15,7 @@ int main()
 	cin >> name;
 
 	const string greeting = "Hello, " + name + "!";
-	const int pad = 1;
+	const int pad = 0;
 
 	const int rows = pad * 2 + 3;
 	const string::size_type cols = greeting.size() + pad * 2 + 2;
