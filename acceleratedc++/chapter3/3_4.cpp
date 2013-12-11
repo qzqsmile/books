@@ -18,20 +18,20 @@ int main(void)
     max_string = min_string = temp_string;
 
     while (cin >> temp_string) {
-	temp_count = temp_string.size();
-	if (temp_count > max_count) {
-	    max_count = temp_count;
-	    max_string = temp_string;
-	}
-	if (temp_count < min_count) {
-	    min_count = temp_count;
-	    min_string = temp_string;
-	}
+        temp_count = temp_string.size();
+        if (temp_count > max_count) {
+            max_count = temp_count;
+            max_string = temp_string;
+        }
+        if (temp_count < min_count) {
+            min_count = temp_count;
+            min_string = temp_string;
+        }
 
     }
 
     cout << "The longest and shortest string is  " << max_string <<"        "<< min_string
-	<< endl;
+        << endl;
 
     return 0;
 }
