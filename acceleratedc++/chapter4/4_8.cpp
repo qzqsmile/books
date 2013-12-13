@@ -1,7 +1,9 @@
 #include<iostream>
 #include<vector>
 
-double f()[n];
+#define n 10
+
+//double f()[n];
 
 int mian(void)
 {
@@ -10,7 +12,7 @@ int mian(void)
 }
 
 
-double f()[n]
-{
-	;
-}
+//double f()[n]
+//{
+//	;
+//}
