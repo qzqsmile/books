@@ -1,8 +1,40 @@
 #include<iostream>
 #include<string>
+#include<vector>
+#include<algorithm>
+
+using std::max;
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
+
+
+string :: size_type width(const vector<string>& v);
+vector<string> frame(const vector<string>& v);
+vector<string> vcat(const vector<string>& top , const vector<string>& bottom);
+vector<string> hcat(const vector<string> & left, const vector<string>& right);
+void print_string(const vector<string> & v);
 
 int main()
 {
+    vector<string> frame_result, split_result;
+    vector<string> vcat_string, hcat_string;
+   //string n_string = "this is an example to illustrate framing";
+    
+    vector<string> n_string;
+    n_string.push_back("this is an");
+    n_string.push_back("example");
+    n_string.push_back("to");
+    n_string.push_back("illustrate");
+    n_string.push_back("framing");
+
+    frame_result = frame(n_string);
+    print_string(frame_result);
+    vcat_string = vcat(n_string, frame_result);
+    hcat_string = hcat(n_string, frame_result);
+    print_string(vcat_string);
+    print_string(hcat_string);
 
     return 0;
 }
@@ -60,23 +92,31 @@ vector<string> hcat(const vector<string> & left, const vector<string>& right)
     vector<string> :: size_type i = 0, j = 0;
 
     while (i != left.size() || j != right.size()){
-	//construct new string to hold characters from both pictures
-	string s;
+        //construct new string to hold characters from both pictures
+        string s;
 
-	//cooy a row from the left hand side, if there is one
-	if (i != left.size())
-	    s = left[i++];
+        //cooy a row from the left hand side, if there is one
+        if (i != left.size())
+            s = left[i++];
 
-	//pad to full width
-	s += string(width1 - s.size(), ' ');
+        //pad to full width
+        s += string(width1 - s.size(), ' ');
 
-	//copy a row from the right-hand side, if there is one
-	if (j != right.size())
-	    s += right[j++];
+        //copy a row from the right-hand side, if there is one
+        if (j != right.size())
+            s += right[j++];
 
-	//add s to the picture we're creating
-	ret.push_back(s);
+        //add s to the picture we're creating
+        ret.push_back(s);
+    }
+    return ret;
+}
 
-	return ret;
+
+void print_string(const vector<string> & v)
+{
+    for (string::size_type i = 0; i != v.size(); i++)
+    {
+        cout << v[i] << endl;
     }
 }
