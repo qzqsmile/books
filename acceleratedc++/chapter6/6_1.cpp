@@ -10,6 +10,17 @@ string :: size_type width(const vector<string>& s);
 
 int main(void)
 {
+    vector<string> v;
+    vector<string>ret;
+
+    v.push_back("this is an");
+    v.push_back("example")
+    v.push_back("to");
+    v.push_back("illustrate");
+    v.push_back("framing");
+
+    ret = frame(v);
+
 	return 0;
 }
 
@@ -24,7 +35,7 @@ vector<string> frame(const vector<string>& v)
 
 
 	for(iter i = v.begin(); i != v.end(); i++ ){
-		ret.push_back("* " + *i + string(maxlen - i.size() ,' ' + " *"));
+		ret.push_back("* " + *i + string(maxlen - (*i).size() ,' ') + " *");
 	}
 
 	ret.push_back(border);
