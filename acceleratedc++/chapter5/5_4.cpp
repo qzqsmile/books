@@ -5,24 +5,33 @@
 
 using std::list;
 using std::vector;
+using std::endl;
 using std::cout;
 
 //typedef vector instead;
-typedef list<int> instead;
-// typedef is different from #define,
-//#define only mean replace without checking out the style
-//typedef reaplace must be a style,
-//for example typedef list instead is illegal
+typedef vector<int> instead;
+
+void print_num(instead &v);
 
 int main()
 {
 
     instead num; 
+    num.resize(5);
 
     for (instead :: iterator iter = num.begin(); iter != num.end(); iter++)
     {
         *iter = 1;
     }
+    print_num(num);
 
     return 0;
+}
+
+void print_num(instead &v)
+{
+    for (instead::const_iterator iter = v.begin(); iter != v.end(); iter++)
+    {
+        cout << (*iter) << endl;
+    }
 }

@@ -16,19 +16,27 @@ string::size_type width(const vector < string > &v);
 
 int main(void)
 {
-	vector < string > v;
-	vector<string> ret;
-	string x;
-	while(cin >> x)
-	{
-		v.push_back(x);
-	}
-	ret = frame(v);
-	for (vector<string>::size_type i = 0; i < ret.size(); i++)
-	{
-		cout << ret[i] << endl;
-	}
-	return 0;
+//	vector < string > v;
+//	vector<string> ret;
+//	string x;
+//	while(cin >> x)
+//	{
+//		v.push_back(x);
+//	}
+//	ret = frame(v);
+//	for (vector<string>::size_type i = 0; i < ret.size(); i++)
+//	{
+//		cout << ret[i] << endl;
+//	}
+    vector<string> v;
+    frame(v);
+
+    for (vector<string>::size_type i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << endl;
+    }
+
+return 0;
 }
 
 

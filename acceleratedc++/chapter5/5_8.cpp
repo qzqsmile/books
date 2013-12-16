@@ -21,9 +21,14 @@ int main(void)
 	string x;
 	vector<string> left, right, ret;
 	
-	while (getline(cin,x)){
-		left.push_back(x);
-	}
+//	while (getline(cin,x)){
+//		left.push_back(x);
+//	}
+    left.push_back("this is an");
+    left.push_back("example");
+    left.push_back("to");
+    left.push_back("illustrate");
+    left.push_back("framing");
 
 	right = frame(left);
 	//print_string(left);
@@ -40,8 +45,14 @@ vector<string> hcat(const vector<string>& left, const vector<string>& right)
 	string::size_type width1 = width(left) + 1;
 	vector<string> :: size_type i = 0, j = 0;
 
-	string s;
+	//string s;
+    //when the left string is output it will cause error
+    // because string s will intilaite the s to null string
+    //when i == left.size() the s will remain the last string ,
+    //which left.size() is 25, and width1-s.sizes() is negative,
+    // and cause a error
 	while(i != left.size() || j != right.size()){
+        string s;
 
 		if (i != left.size())
 			s = left[i++];
