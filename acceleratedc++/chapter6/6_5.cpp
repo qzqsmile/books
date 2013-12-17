@@ -7,6 +7,8 @@
 using std::domain_error;
 using std::vector;
 using std::string;
+using std::cin;
+using std::istream;
 
 struct Student_info {
 	std::string name;
@@ -19,13 +21,15 @@ double grade(double midterm, double final, double homework);
 double grade(double midterm, double final, const std::vector < double >&hw);
 double grade(const Student_info & s);
 double median(std::vector < double >vec);
+istream &read(istream &is, Student_info & v);
+istream & read_hw(istream& in, vector<double> & hw);
 
 int main(void)
 {
 	vector<Student_info> students;
-	string x;
+	Student_info x;
 	
-	while (cin >> x){
+	while (read(cin,x)){
 		students.push_back(x);
 	}
 
@@ -76,3 +80,22 @@ double median(std::vector < double >vec)
 	return size % 2 == 0 ? (vec[mid] + vec[mid - 1]) / 2 : vec[mid];
 }
 
+istream &read(istream &is, Student_info & v)
+{
+    is >> v.name >> v.midterm >> v.final;
+}
+
+istream & read_hw(istream& in, vector<double> & hw)
+{
+    if (in){
+        hw.clear();
+
+        double x;
+        while (in >> x)
+            hw.push_back(x);
+
+        in.clear();
+    }
+
+    return in;
+}

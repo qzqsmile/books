@@ -5,28 +5,25 @@
 #include<vector>
 
 using std::vector;
-using std::string;
-using std::cin;
 using std::cout;
+using std::cin;
 using std::endl;
+using std::string;
 
 vector<string> find_urls(const string& s);
 string::const_iterator url_beg(string::const_iterator b, string::const_iterator e);
 bool not_url_char(char c);
 string::const_iterator url_end(string::const_iterator b, string::const_iterator e);
-void print_string(const vector<string>& url_string);
+void print_string(const vector<string> & v);
 
 int main(void)
 {
-	vector<string> url_string;
-	string x;
+    string in_string = "dsfasdf http://www.acceleratedcpp.com asdfsadf";
+    vector<string> url;
 
-	cout << "Please input the string" << endl;
-	cin >> x;
-
-	url_string = find_urls(x);
-	print_string(url_string);
-
+    url = find_urls(in_string);
+    print_string(url);
+   
 	return 0;
 }
 
@@ -36,12 +33,18 @@ vector<string> find_urls(const string& s)
 	typedef string::const_iterator iter;
 	iter b = s.begin(), e = s.end();
 
+    //look through the entire input
 	while(b != e){
+        //look for one or more letters followed by://
 		b  = url_beg(b, e);
 
+        //if we found it
 		if (b != e){
+            // get the rest of the URL
 			iter after = url_end(b, e);
+            //remember the URL
 			ret.push_back(string(b, after));
+            //advance and check for more URLs on this line
 			b = after;
 		}
 	}
@@ -51,8 +54,10 @@ vector<string> find_urls(const string& s)
 
 bool not_url_char(char c)
 {
-	static const string url_ch = "~;/?:@=&$-_+!*'(),""";
+    // characters in addition to alphanumerics, that can appear in a URL
+	static const string url_ch = "~;/?:@=&$-_.+!*'(),""";
 
+    // see whether c can appear in a URL and return the negative
 	return !(isalnum(c) || find(url_ch.begin(), url_ch.end(), c) != url_ch.end());
 }
 
@@ -61,17 +66,23 @@ string::const_iterator url_beg(string::const_iterator b, string::const_iterator 
 	static const string sep = "://";
 	typedef string::const_iterator iter;
 
+    // i marks where the separator was found
 	iter i = b;
 
 	while((i = search(i, e, sep.begin(),sep.end())) != e){
+        //make sure the separator isn't at the beginning or end of the line
 		if(i != b && i + sep.size() != e){
+
+            //beg marks the beginning of the protocaol-name
 			iter beg = i;
 			while (beg != b && isalpha(beg[-1]))
 				--beg;
 
+            // is there at least one appropriate character begor and after the separator
 			if(beg != i && !not_url_char(i[sep.size()]))
 				return beg;
 		}
+        //the separtor we found wasn't part of a URL;advance i past this separartor
 		i += sep.size();
 	}
 
@@ -83,9 +94,10 @@ string::const_iterator url_end(string::const_iterator b,string::const_iterator e
 	return find_if(b, e, not_url_char);
 }
 
-void print_string(const vector<string>& url_string)
+void print_string(const vector<string> & v)
 {
-	for (vector<string> :: size_type i = 0; i < url_string.size(); i++){
-		cout << url_string[i] << endl;
-	}
+    for (vector<string> ::  const_iterator iter = v.begin(); iter != v.end(); iter++)
+    {
+        cout << (*iter) << endl;
+    }
 }
