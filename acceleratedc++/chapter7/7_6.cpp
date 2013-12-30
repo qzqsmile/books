@@ -16,20 +16,23 @@ using std::map;
 using std::endl;
 using std::istream;
 
+#define Grammar Rule_collection
+// repalce the map with vector
+
 typedef vector<string> Rule;
-typedef vector<Rule>Rule_collection;
-typedef map<string,Rule_collection> Grammar;
+typedef vector<Rule> Rule_collection;
+//typedef map<string,Rule_collection> Grammar;
 
 Grammar read_grammar(istream& in);
 vector<string> gen_sentence(const Grammar& g);
-void gen_aux(const Grammar& g, const string& word, vector<string>& ret, vector<string>& rule);
+void gen_aux(const Grammar& g, const string& word, vector<string>& ret);
 bool bracketed(const string& s);
 bool space(char c);
 bool not_space(char c);
 vector<string> split(const string& str);
 int nrand(int n);
 
-int main(void)
+int main()
 {
 	vector<string> sentence = gen_sentence(read_grammar(cin));
 
@@ -54,12 +57,13 @@ Grammar read_grammar(istream& in)
 {
 	Grammar ret;
 	string line;
+    int i = 0;
 
 	while (getline(in, line)){
 		vector<string> entry = split(line);
 
 		if (!entry.empty())
-			ret[entry[0]].push_back(Rule(entry.begin() + 1, entry.end()));
+            ret[i++] = entry;
 	}
 
 	return ret;
@@ -69,7 +73,7 @@ vector<string> gen_sentence(const Grammar& g)
 {
 	vector<string> ret;
 	vector<string> rule;
-	gen_aux(g, "<sentence>", ret, rule);
+	gen_aux(g, "<sentence>", ret);
 	return ret;
 }
 
@@ -78,26 +82,18 @@ bool bracketed(const string& s)
 	return s.size() > 1 && s[0] == '<' && s[s.size() - 1] == '>';
 }
 
-void gen_aux(const Grammar& g, const string& word, vector<string>& ret, vector<string>& rule)
+void gen_aux(const Grammar& g, const string& word, vector<string>& ret)
 {
-	Grammar::const_iterator it = g.find(word);
+   // if (!bracketed(word)){
+   //     for (vector<string> :: const_iterator iter ){
+   //     }
+   // }
+   for (Rule_collection :: const_iterator iter = g.begin(); iter != g.end(); iter++){
+       if (**iter == word){
+           for ():wq
 
-	if (it == g.end()){
-		throw logic_error("empty rule");
-	}
-
-	const Rule_collection& c = it -> second;
-	
-	for (Rule_collection::size_type i = 0; i < c.size(); i++){
-		if (bracketed(c[i])){
-			;
-	//			rule.push_back(c[i]);
-		}
-		else{
-	//		ret.push_back(c[i]);
-			;
-		}
-	}
+       }
+   }
 }
 
 int nrand(int n)

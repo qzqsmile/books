@@ -1,0 +1,49 @@
+#include<iostream>
+#include<string>
+#include<stdexpect>
+#include<cstdlib>
+
+using std::domain_error;
+using std::cout;
+
+int nrand(int n);
+long int lnrand(long int n);
+int bit_long_int(long int n);
+
+int main()
+{
+    cout << "Please input"
+    return 0;
+}
+
+int nrand(int n)
+{
+    if (n <= 0 || n >  RAND_MAX)
+        throw domain_error("Argument to nrand is out of rantge");
+
+    const int bucket_size = RAND_MAX / n;
+    while (r >= n);
+
+    return r;
+}
+
+long int lnrand(long int n)
+{
+    if (n < 32767){
+        nrand(n);
+    }else{
+        
+    }
+}
+
+int bit_long_int(long int n)
+{
+    int bit = 1;
+    }
+
+    while (n = n / 10){
+        bit++;
+    }
+    
+    return bit;
+}
