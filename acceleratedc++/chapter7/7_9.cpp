@@ -46,7 +46,7 @@ long int lnrand(long int n)
     long int result = 0;
 
     if (n < 32767) {
-        nrand(n);
+        result = nrand(n);
     } else {
         if (bit_long_int(n) > 8) {
 
@@ -57,14 +57,14 @@ long int lnrand(long int n)
             temp_rand = nrand((four_bit_high) + 1);
             if (temp_rand < four_bit_high) {
                 result +=
-                    10000 * 10000 * temp_rand + nrand(10000) +
+                    10000 * 10000 * temp_rand + nrand(10000) * 10000 +
                     nrand(10000);
             } else if( temp_rand == four_bit_high ){
-                temp_rand = nrand((four_bit_middle + 1));
+                temp_rand = nrand(10000);
                 if (temp_rand < four_bit_middle) {
                     result += four_bit_high * 10000 * 10000 + temp_rand * 10000 + nrand(10000);
                 } else if(four_bit_middle == temp_rand){
-                    temp_rand = nrand((four_bit_low + 1)); 
+                    temp_rand = nrand(10000); 
                     if (temp_rand <= four_bit_low) {
                         result += four_bit_high * 10000 * 10000 + four_bit_middle * 10000 + temp_rand;
                     }else{
@@ -79,11 +79,11 @@ long int lnrand(long int n)
         } else {
             four_bit_low = n % 10000;
             four_bit_middle = n / 10000;
-            temp_rand = nrand((four_bit_high)+1);
-            if(temp_rand < four_bit_high){
-                result += temp_rand * 10000 * 10000 + nrand(10000);
-            }else if(temp_rand == four_bit_high){
-                temp_rand = nrand((four_bit_low + 1));
+            temp_rand = nrand((four_bit_middle)+1);
+            if(temp_rand < four_bit_middle){
+                result += temp_rand * 10000 + nrand(10000);
+            }else if(temp_rand == four_bit_middle){
+                temp_rand = nrand(10000);
                 if (temp_rand <= four_bit_low){
                     result += four_bit_middle * 10000 + nrand(10000);
                 }else{
