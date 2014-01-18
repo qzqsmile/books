@@ -1,47 +1,29 @@
+#include<iterator>
 #include<iostream>
-#include<string>
 #include<algorithm>
 #include<vector>
-#include<iterator>
 
-using std::cout;
+using std::vector;
 using std::cin;
-using std::string;
+using std::cout;
+using std::copy;
+using std::istream_iterator;
 using std::ostream_iterator;
 
-bool space(char c)
+struct Student
 {
-	return isspace(c);
-}
-
-bool not_space(char c)
-{
-	return !isspace(c);
-}
-
-template <class Out>
-void split(const string& str, Out os){
-	typedef string::const_iterator iter;
-
-	iter i = str.begin();
-	while (i != str.end()){
-		i = find_if(i, str.end(), not_space);
-
-		iter j = find_if(i, str.end(), space);
-
-		if (i != str.end())
-			*os++ = string(i, j);
-
-		i = j;
-	}
-}
+    int midterm, name, final;
+};
 
 int main()
 {
-	string s;
-	
-	while (getline(cin, s))
-		split(s, ostream_iterator<string>(cout, "\n"));
+    vector<int> v;
+    Student s;
+    cin >> s.name >> s.midterm >> s.final;
 
-	return 0;
+    copy(istream_iterator<int> (cin), istream_iterator<int>(),back_inserter(    v));
+    copy(v.begin(), v.end(), ostream_iterator<int>(cout, " "));
+    copy(v.begin(), v.end(), ostream_iterator<int>(cout));
+
+    return 0;
 }
