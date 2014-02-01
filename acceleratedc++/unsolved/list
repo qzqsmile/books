@@ -6,3 +6,7 @@ how to make the map sorted by the value not the key
 one solution
 exchange the key and value and store them in another map
 but this solution must require the map value is unique
+8_5
+8_6
+9_7
+
