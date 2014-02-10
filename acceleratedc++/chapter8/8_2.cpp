@@ -5,8 +5,6 @@
 
 using std::swap;
 
-//partition();
-//accumulate();
 
 template <class In1, class In2>
 bool equal(In1 first1, In2 last1, In1 first2)
@@ -152,7 +150,6 @@ T accumulate(In first, In last, T result)
 
     return result;
 }
-//accumulate();
 
 int main()
 {

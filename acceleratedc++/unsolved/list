@@ -6,4 +6,11 @@ how to make the map sorted by the value not the key
 one solution
 exchange the key and value and store them in another map
 but this solution must require the map value is unique
+<<<<<<< HEAD
 10_4~10-6
+=======
+8_5
+8_6
+9_7
+
+>>>>>>> 1a6903ed22e3c41d4ac3ae0d319d0655424627bd

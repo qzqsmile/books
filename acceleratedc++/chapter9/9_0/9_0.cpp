@@ -22,7 +22,6 @@ using std::streamsize;
 int main()
 {
 	vector<Student_info> students;
-	vector<Student_info> pass_students, fail_students;
 	Student_info record;
 	string::size_type maxlen = 0;
 
@@ -30,8 +29,8 @@ int main()
 		maxlen = max(maxlen, record.name().size());
 		students.push_back(record);
 	}
-
 	sort(students.begin(), students.end(), compare);
+
 
 	for (vector<Student_info> :: size_type i = 0; i != students.size(); ++i){
 		cout << students[i].name() << string(maxlen + 1 - students[i].name().size(),' ');
@@ -43,29 +42,6 @@ int main()
 			cout << e.what() << endl;
 		}
 	}
-
-	for(vector<Student_info> :: size_type i = 0; i != students.size(); i++)
-	{
-		if (students[i].is_pass()){
-			pass_students.push_back(students[i]);
-		}
-		else{
-			fail_students.push_back(students[i]);
-		}
-	}
 	
-	cout << "The pass students is:" << endl;
-
-	for (vector<Student_info> :: size_type i = 0; i != pass_students.size(); ++i){
-		cout << pass_students[i].name() << string(maxlen + 1 - pass_students[i].name().size(),' ');
-	}
-	cout << endl;
-
-	cout << "The false students is:" << endl;
-	for (vector<Student_info> :: size_type i = 0; i != fail_students.size(); ++i){
-		cout << fail_students[i].name() << string(maxlen + 1 - fail_students[i].name().size(),' ');
-		}
-
-	cout << endl;
 	return 0;
 }
