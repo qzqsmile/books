@@ -1,48 +1,52 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include<algorithm>
+#include<cstring>
 #include<stdexcept>
 
 using std::string;
+using std::strlen;
 using std::ifstream;
 using std::ofstream;
 using std::cout;
 using std::endl;
 using std::cerr;
+using std::copy;
+
+char* duplicate_chars(const char* p);
 
 int main(int argc, char** argv)
-	using std::cerr;
 {
-//	if(argc > 1){
-//		cout << argv[1];
-//
-//		for (int i = 2; i != argc; ++i)
-//			cout << " " << argv[i];
-//	}
-//	cout << endl;
-//
-//	ifstream infile("in");
-//	ofstream outfile("out");
-//	
-//	string s;
-//
-//	while (getline(infile, s))
-//		outfile << s << endl;
-	
-	int fail_count = 0;
+	if(argc > 1){
+		cout << argv[1];
 
-	for (int i = 1; i < argc; ++i){
-		ifstream in(argv[i]);
-
-		if (in){
-			string s;
-			while (getline(in, s))
-				cout << s << endl;
-		}else{
-			cerr << "cannot open file " << argv[i] << endl;
-			++fail_count;
-		}
+		for (int i = 2; i != argc; ++i)
+			cout << " " << argv[i];
 	}
+	cout << endl;
+
+	ifstream infile("in");
+	ofstream outfile("out");
+	
+	string s;
+	while (getline(infile, s))
+		outfile << s << endl;
+	
+//	int fail_count = 0;
+//
+//	for (int i = 1; i < argc; ++i){
+//		ifstream in(argv[i]);
+//
+//		if (in){
+//			string s;
+//			while (getline(in, s))
+//				cout << s << endl;
+//		}else{
+//			cerr << "cannot open file " << argv[i] << endl;
+//			++fail_count;
+//		}
+//	}
 
 	return 0;
 }
@@ -64,3 +68,13 @@ int main(int argc, char** argv)
 //
 //	return "?\?\?";
 //}
+
+char* duplicate_chars(const char* p)
+{
+    size_t length = strlen(p) + 1;
+    char* result = new char[length];
+
+    copy (p, p + length, result);
+
+    return result;
+}
