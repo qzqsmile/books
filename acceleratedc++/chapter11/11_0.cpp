@@ -1,13 +1,21 @@
 #include<iostream>
 #include<memory>
+#include<algorithm>
 
-template <class T> class allocator{
-public:
-	T* allocate(size_t);
-	void deallocate(T*, size_t);
-      	void construct(T*, const T&);
-	void destroy(T*);
-};
+//template <class T> class allocator{
+//public:
+//	T* allocate(size_t);
+//	void deallocate(T*, size_t);
+//    void construct(T*, const T&);
+//	void destroy(T*);
+//};
+
+using std::allocator;
+using std::max;
+using std::uninitialized_copy;
+using std::uninitialized_fill;
+using std::cout;
+using std::endl;
 
 template<class T> class Vec{
 	public:
@@ -92,7 +100,7 @@ template <class T> void Vec<T>::uncreate()
 	if (data){
 		iterator it = avail;
 		while(it != data)
-			alloc.destory(--it);
+			alloc.destroy(--it);
 		
 		alloc.deallocate(data, limit - data);
 	}
@@ -100,7 +108,32 @@ template <class T> void Vec<T>::uncreate()
 	data = limit = avail = 0;
 }
 
+template<class T> void Vec<T> :: grow()
+{
+    size_type new_size = max(2 * (limit - data), std::ptrdiff_t(1));
+
+    iterator new_data = alloc.allocate(new_size);
+    iterator new_avail = uninitialized_copy(data, avail, new_data);
+
+    uncreate();
+
+    data = new_data;
+    avail = new_avail;
+    limit = data + new_size;
+}
+
+template <class T> void Vec<T> :: unchecked_append(const T& val)
+{
+    alloc.construct(avail++, val);
+}
+
+
 int main()
 {
+//	Vec<int> x;
+//
+//	x.push_back(1);
+//	cout << x[0] << endl;
+//
 	return 0;
 }
