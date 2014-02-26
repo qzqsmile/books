@@ -19,6 +19,9 @@ class Str {
 			return *this;
 		}
 		typedef Vec<char> :: size_type size_type;
+		const char* c_str() const;
+		const char* c_data() const;
+
 		Str() {create(0 , '\0');}
 		Str(size_type n, char c) : data(n, c) { }
 		Str(const char* cp){
@@ -37,8 +40,6 @@ class Str {
 
 		allocator<char> alloc;
 		void create(size_type, char);
-		const char* c_str() const;
-		const char* c_data() const;
 		size_t copy (char* s, size_t len, size_t pos) const;
 
 		template<class In> void create (In, In);
@@ -126,6 +127,46 @@ size_t Str :: copy (char* s, size_t len, size_t pos = 0) const
 	return copy_length;
 }
 
+
+bool operator== (const Str& lhs, const Str& rhs)
+{
+	if (0 == strcmp(lhs.c_str(), rhs.c_str()))
+		return 1;
+	return 0;
+}
+
+bool operator!= (const Str& lhs, const Str& rhs)
+{
+	if (0 != strcmp(lhs.c_str(), rhs.c_str()))
+		return 1;
+	return 0;
+}
+
+bool operator< (const Str& lhs, const Str& rhs)
+{
+	if (strcmp(lhs.c_str(), rhs.c_str()) < 0)
+		return 1;
+	return 0;
+}
+
+bool operator<= (const Str& lhs, const Str& rhs)
+{
+	if (strcmp(lhs.c_str(), rhs.c_str()) <= 0)
+		return 1;
+	return 0;
+}
+bool operator>  (const Str& lhs, const Str& rhs)
+{
+	if (strcmp(lhs.c_str(), rhs.c_str()) > 0)
+		return 1;
+	return 0;
+}
+bool operator>= (const Str& lhs, const Str& rhs)
+{
+	if (strcmp(lhs.c_str(), rhs.c_str()) >= 0)
+		return 1;
+	return 0;
+}
 int main()
 {
 	return 0;
