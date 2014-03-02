@@ -9,46 +9,46 @@ using std::copy;
 using std::istream;
 
 class Str {
-		friend std::istream& operator>> (std::istream&, Str&);
+	friend std::istream& operator>> (std::istream&, Str&);
 	public:
-		typedef char* iterator;
-		operator double() const;
-		operator char*();
-		operator const char*() const;
-		Str& operator+=(const Str& s){
-			std::copy(s.data.begin(), s.data.end(), std::back_inserter(data));
-			return *this;
-		}
-		typedef Vec<char> :: size_type size_type;
-		const char* c_str() const;
-		const char* c_data() const;
-		void clear();
+	typedef char* iterator;
+	operator double() const;
+	operator char*();
+	operator const char*() const;
+	Str& operator+=(const Str& s){
+		std::copy(s.data.begin(), s.data.end(), std::back_inserter(data));
+		return *this;
+	}
+	typedef Vec<char> :: size_type size_type;
+	const char* c_str() const;
+	const char* c_data() const;
+	void clear();
+	void push_back(char c);
 
-		Str() {create(0 , '\0');}
-		Str(size_type n, char c) : data(n, c) { }
-		Str(const char* cp){
-			std::copy(cp, cp+std::strlen(cp), std::back_inserter(data));
-		}
+	Str() {create(0 , '\0');}
+	Str(size_type n, char c) : data(n, c) { }
+	Str(const char* cp){
+		std::copy(cp, cp+std::strlen(cp), std::back_inserter(data));
+	}
 
-		template<class In> Str(In b, In e){
-			std::copy(b, e, std::back_inserter(data));
-		}
-		char& operator[] (size_type i) {return data[i];}
-		const char& operator[](size_type i)const { return data[i]; }
+	template<class In> Str(In b, In e){
+		std::copy(b, e, std::back_inserter(data));
+	}
+	char& operator[] (size_type i) {return data[i];}
+	const char& operator[](size_type i)const { return data[i]; }
 	private:
-		Vec<char> data;
-		iterator begin;
-		iterator end;
-		size_type length;
+	Vec<char> data;
+	iterator begin;
+	iterator end;
+	size_type length;
 
-		allocator<char> alloc;
-		void create(size_type, char);
-		void push_back(char c);
-		size_t copy (char* s, size_t len, size_t pos) const;
+	allocator<char> alloc;
+	void create(size_type, char);
+	size_t copy (char* s, size_t len, size_t pos) const;
 
-		template<class In> void create (In, In);
-		void uncreate();
-		void grow(size_type);
+	template<class In> void create (In, In);
+	void uncreate();
+	void grow(size_type);
 };
 
 std::istream & operator>>(std::istream&, Str&);
@@ -175,7 +175,15 @@ bool operator>= (const Str& lhs, const Str& rhs)
 
 void Str::push_back(char c)
 {
-	;
+	size_type new_length = length + 1;
+	iterator new_begin = alloc.allocate(new_length);
+	uninitialized_copy(begin, end, new_begin);
+	alloc.construct((new_begin + new_length - 1), c);
+	uncreate();
+
+	length = new_length;
+	begin = new_begin;
+	end = begin + length;
 }
 istream& getline (istream& is, Str& str)
 {	
@@ -194,10 +202,10 @@ void Str::clear()
 //test example
 int main(void)
 {
-//	Str ex("Hello, world!");
-//	ex = ex + "ni hao";
+	//	Str ex("Hello, world!");
+	//	ex = ex + "ni hao";
 	Str ex;
 	getline(std::cin, ex);
-		
+
 	return 0;
 }
