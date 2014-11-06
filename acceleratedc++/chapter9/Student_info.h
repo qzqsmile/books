@@ -1,24 +1,20 @@
 #ifndef GUARD_Student_info
 #define GUARD_Student_info
 
-#include<vector>
 #include<iostream>
 #include<string>
-
-using std::istream;
-using std::string;
-using std::vector;
+#include<vector>
 
 class Student_info{
-	public:
-		string name() const {return n;}
-		bool valid() const{return !homework.empty();}
-		istream& read(istream&);
-		double grade() const;
-	private:
-		string n;
-		double midterm, final;
-		vector<double> homework;
+    public:
+	std::string name() const {return n;}
+	bool valid() const{return !homework.empty();}
+	std::istream& read(istream&);
+	double grade() const;
+    private:
+	std::string n;
+	double midterm, final;
+	vector<double> homework;
 };
 
 bool compare(const Student_info&, const Student_info&);

@@ -5,22 +5,23 @@
 #include<iostream>
 #include<string>
 
+using std::istream;
+using std::string;
+using std::vector;
+
 class Student_info{
 	public:
-		std::string name() const {return n;}
+		string name() const {return n;}
 		bool valid() const{return !homework.empty();}
-		std::istream& read(std::istream&);
+		istream& read(istream&);
 		double grade() const;
-		Student_info();
-		Student_info(std::istream&);
 	private:
-		std::string n;
-		double final_grade;
+		string n;
 		double midterm, final;
-		std::vector<double> homework;
+		vector<double> homework;
 };
 
 bool compare(const Student_info&, const Student_info&);
-std::istream& read_hw(std::istream&, std::vector<double>&);
+std::istream& read_hw(istream&, vector<double>&);
 
 #endif
