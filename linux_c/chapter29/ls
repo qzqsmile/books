@@ -1,0 +1,13 @@
+Inode: 2   Type: directory    Mode:  0755   Flags: 0x0
+Generation: 0    Version: 0x00000000
+User:  1000   Group:  1000   Size: 1024
+File ACL: 0    Directory ACL: 0
+Links: 3   Blockcount: 2
+Fragment:  Address: 0    Number: 0    Size: 0
+ctime: 0x54b5dfe8 -- Wed Jan 14 11:18:00 2015
+atime: 0x54b5e633 -- Wed Jan 14 11:44:51 2015
+mtime: 0x54b5dfe8 -- Wed Jan 14 11:18:00 2015
+BLOCKS:
+(0):24
+TOTAL: 1
+
