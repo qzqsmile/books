@@ -21,7 +21,7 @@ int main(void)
 		exit(3);
 	}else{
 		int stat_val;
-		pid++;	
+//		pid++;	
 		waitpid(pid, &stat_val, 0);
 		if(WIFEXITED(stat_val))
 			printf("Child exited with code %d\n", WEXITSTATUS(stat_val));
