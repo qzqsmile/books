@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	servaddr.sin_port = htons(SERV_PORT);
 
 	connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr));
-	while(1);
+
 
 	write(sockfd, str, strlen(str));
 	n = read(sockfd, buf, MAXLINE);
@@ -37,5 +37,6 @@ int main(int argc, char *argv[])
 	write(STDOUT_FILENO, buf, n);
 
 	close(sockfd);
+
 	return 0;
 }

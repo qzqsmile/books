@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<errno.h>
 #include<sys/socket.h>
+#include"wrap.h"
 
 void perr_exit(const char *s)
 {
@@ -13,15 +14,15 @@ int Accept(int fd, struct sockaddr *sa, socklen_t *salenptr)
 	int n;
 again:
 	if((n = accept(fd, sa, salenptr)) < 0){
-		if((errno == ECONNABORTED) || (errno == EINTER))
-			goto again:
+		if((errno == ECONNABORTED) || (errno == EINTR))
+			goto again;
 		else
 			perr_exit("accept error");
 	}
 	return n;
 }
 
-void Bind(int fd, const struct sockaddr *sas, socklen_t salen)
+void Bind(int fd, const struct sockaddr *sa, socklen_t salen)
 {
 	if (bind(fd, sa, salen) < 0)
 		perr_exit("bind error");
@@ -35,7 +36,7 @@ void Connect(int fd, const struct sockaddr *sa, socklen_t salen)
 
 void Listen(int fd, int backlog)
 {
-	if(listen(fd, backelog) < 0)
+	if(listen(fd, backlog) < 0)
 		perr_exit("listen error");
 }
 
@@ -53,7 +54,7 @@ ssize_t Read(int fd, void *ptr, size_t nbytes)
 	ssize_t n;
 again:
 	if((n = read(fd, ptr, nbytes)) == -1){
-		if(errno == EINTER)
+		if(errno == EINTR)
 			goto again;
 		else
 			return -1;
@@ -64,8 +65,8 @@ ssize_t Write(int fd, const void *ptr, size_t nbytes)
 {
 	ssize_t n;
 again:
-	if((n = Write(fd, ptr, nbytes) == -1)){
-		if(errno == EINTER)
+	if((n = write(fd, ptr, nbytes) == -1)){
+		if(errno == EINTR)
 			goto again;
 		else
 			return -1;
@@ -89,7 +90,7 @@ ssize_t Readn(int fd, void *vptr, size_t n)
 	nleft = n;
 	while(nleft > 0){
 		if((nread = read(fd, ptr, nleft)) < 0){
-			if(errno == EINTER)
+			if(errno == EINTR)
 				nread = 0;
 			else
 				return -1;
@@ -105,7 +106,7 @@ ssize_t Readn(int fd, void *vptr, size_t n)
 
 ssize_t Writen(int fd, const void *vptr, size_t n)
 {
-	size_t nelft;
+	size_t nleft;
 	ssize_t nwritten;
 	const char *ptr;
 
@@ -113,7 +114,7 @@ ssize_t Writen(int fd, const void *vptr, size_t n)
 	nleft = n;
 	while(nleft > 0){
 		if( (nwritten = write(fd, ptr, nleft)) <= 0){
-			if(nwritten < 0 && errno == EINTER)
+			if(nwritten < 0 && errno == EINTR)
 				nwritten  = 0;
 			else
 				return -1;
@@ -134,7 +135,7 @@ static ssize_t my_read(int fd,  char *ptr)
 
 	if(read_cnt <= 0){
 	again:
-		if((read-cnt = read(fd, read_buf, sizeof(read_buf))) < 0){
+		if((read_cnt = read(fd, read_buf, sizeof(read_buf))) < 0){
 			if(errno == EINTR)
 				goto again;
 			return -1;
