@@ -12,8 +12,10 @@ void printids(const char * s)
 	pthread_t tid;
 	
 	pid = getpid();
-	tid = pthread_self();
-	printf("%s pid %u tid %u (0x%x)\n", s, (unsigned int)pid, (unsigned int)tid, (unsigned int) tid);
+	tid = 0;
+//	tid = pthread_self();
+	printf("%s pid %u tid %u (0x%x)\n", s, (unsigned int)pid, (unsigned int)tid, (unsigned int)tid);
+//	printf("%s pid %u tid %u (0x%x)\n", s, (unsigned int)pid, (unsigned int)ntid, (unsigned int) ntid);
 }
 
 void *thr_fn(void *arg)

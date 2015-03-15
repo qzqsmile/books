@@ -1,4 +1,5 @@
 #include<unistd.h>
+#include<string.h>
 #include<stdlib.h>
 #include<stdio.h>
 
@@ -6,10 +7,12 @@
 
 int main(int argc, char *argv[])
 {
-	int fd, i;
-	pid_t pid;
+	int fd, i, j ;
 	char *const ps_argv[] = {"ls","-al", NULL};
 	char buf[MAX];
+	char *saveptr1, saveptr2;
+	char  *token, *subtoken;
+	pid_t pid;
 
 	while(1)
 	{
@@ -19,17 +22,17 @@ int main(int argc, char *argv[])
 		pid = fork();
 		if(0 == pid)
 		{
-			for(i = 0; i != MAX; i++)
+			for(i = 0; ;i++)
 			{
-				switch (buf[i])
-				{
-					case ' ':
-						continue;
-						break;
-					default:
-						break;
-
-				}
+				token = strtok_r(str1,'|', &saveptr1);
+				if(token == NULL)
+					break;
+			}
+			for(i = 0; ; i++)
+			{
+				token = strtok_r(str1,'<>',&saveptr2);
+				if(token == NULL)
+					break;
 			}
 		}else if(pid > 0){
 			wait(NULL);	
@@ -43,3 +46,28 @@ int main(int argc, char *argv[])
 	return 0;
 
 }
+/*
+   execute cmmand include pipe '|'
+*/
+void exe_pipe(char *buf)
+{
+	int i = 0;
+	char *saveptr1;
+	for(i = 0; ;i++)
+	{
+		token = strtok_r(str1, '|', &saveptr1);
+		if(token == NULL)
+		{
+		}
+		else
+		{
+		}
+	}
+}
+
+/*
+   execute command include '<>'
+*/
+
+/*
+ */
