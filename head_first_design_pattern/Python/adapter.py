@@ -32,6 +32,7 @@ class WildTurkey(Turkey):
     def fly(self):
         print("I'm flying a short distance")
 
+
 #object adaptive
 class TurkeyAdapter(Duck):
     def __init__(self, turkey):
