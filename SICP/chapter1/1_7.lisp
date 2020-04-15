@@ -1,3 +1,11 @@
+;; 因为是应用序
+;; (defun new-if (pred then else) 
+;; (
+;;     cond (pred then)
+;;     (t else)
+;; ))
+
+
 (defun sqrtiter (guess x)
     (if (goodEnough guess x)
             (float guess)
@@ -21,7 +29,7 @@
     (* x x)
 )
 
-(write(sqrtiter 1 2))
+(write(sqrtiter 1 432343))
 
-;; (defun (improve guess x) (average guess (/ x guess)))
 
+;; (write(new-if (= 3 3) 0 5))
