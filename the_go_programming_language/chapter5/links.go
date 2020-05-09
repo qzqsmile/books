@@ -1,31 +1,55 @@
-package links
+package main
 
 import (
 	"fmt"
-	"log"
 	"os"
+	"sync"
+	"time"
 )
 
-func breadthFirst(f func(item string) []string, worklist []string) {
-	seen := make(map[string]bool) for len(worklist) > 0 {
-		items := worklist
-		worklist = nil
-		for _, item := range items {
-			if !seen[item] {
-				seen[item] = true
-				worklist = append(worklist, f(item)...)
-			}
+var wg sync.WaitGroup
+var done = make(chan struct{})
+
+// help method not used here
+
+func worker1() {
+	defer wg.Done()
+	for {
+		select {
+		case <-done:
+			return
+		default:
+			// do real things
+			time.Sleep(1 * time.Second)
+			fmt.Println("worker1 running...")
 		}
 	}
 }
 
-func crawl(url string) []string { fmt.Println(url)
-	list, err := links.Extract(url) if err != nil {
-		log.Print(err) }
-	return list }
-
-func main(){
-	breadthFirst(crawl, os.Args[1:])
+func worker2() {
+	defer wg.Done()
+	for {
+		select {
+		case <-done:
+			return
+		default:
+			// do real things
+			time.Sleep(1 * time.Second)
+			fmt.Println("worker2 running...")
+		}
+	}
 }
 
+func main() {
+	go func() {
+		os.Stdin.Read(make([]byte, 1)) // 按 enter 建结束
+		close(done)
+	}()
 
+	wg.Add(2)
+	go worker1()
+	go worker2()
+
+	wg.Wait()
+	fmt.Println("main exists")
+}
