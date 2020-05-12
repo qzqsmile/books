@@ -1,18 +1,19 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/rpc"
 )
 
-//const HelloServiceName = "path/to/pkg.HelloService"
+const HelloServiceName = "HelloService"
 
 
 type HelloServiceClient struct {
 	*rpc.Client
 }
 
-//var HelloServiceInterface = (*HelloServiceClient)(nil)
+var HelloServiceInterface = (*HelloServiceClient)(nil)
 
 func DialHelloService(network, address string) (*HelloServiceClient, error) {
 	c, err := rpc.Dial(network, address)
@@ -38,4 +39,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(reply)
 }

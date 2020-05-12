@@ -6,7 +6,7 @@ import (
 	"net/rpc"
 )
 
-const HelloServiceName = "path/to/pkg.HelloService"
+const HelloServiceName = "HelloService"
 
 type HelloServiceInterface = interface {
 	Hello(request string, reply *string) error
