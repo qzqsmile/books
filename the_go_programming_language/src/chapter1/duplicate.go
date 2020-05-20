@@ -11,6 +11,7 @@ func main() {
 	input := bufio.NewScanner(os.Stdin)
 	for input.Scan() {
 		counts[input.Text()]++
+		fmt.Printf("%v", input.Text())
 	}
 	// NOTE: ignoring potential errors from input.Err()
 	for line, n := range counts {

@@ -1,13 +1,11 @@
 package main
 
-import "fmt"
-
 const boilingF = 212.0
 
-func main() {
-	var f = boilingF
-	var c = (f - 32) * 5 / 9
-	fmt.Printf("boiling point = %f°F or %g°C\n", f, c)
-	// Output:
-	// boiling point = 212°F or 100°C
-}
+var a = b + c
+var b = f()
+var c = 1
+// a initialized third, to 3
+// b initialized second, to 2, by calling f
+// c initialized first, to 1
+func f() int { return c + 1 }
