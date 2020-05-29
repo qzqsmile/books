@@ -3,8 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	f()
-	fmt.Println("Returned normally from f.")
+	//f()
+	//fmt.Println("Returned normally from f.")
+	//fmt.Errorf("adfa")
+	var x string
+	fmt.Printf("%v", x)
 }
 
 func f() {
