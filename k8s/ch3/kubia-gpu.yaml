@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual
+spec:
+  nodeSelector:
+    gpu: "true"
+  containers:
+  - image: dockerpaladin/kubia
+    name: kubia
+
